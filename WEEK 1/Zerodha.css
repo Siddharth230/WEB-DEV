@@ -1,0 +1,24 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  flex: 1fr 1fr;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.header .logo-img {
+  max-height: 17px;
+  vertical-align: middle;
+  position: relative;
+  margin-top: 18px;
+}
+.header-links {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.photo-container {
+  align-content: center;
+}
+.photo-img {
+  width: 900px;
+}
