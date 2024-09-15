@@ -63,6 +63,7 @@ fs.readFile("WEEK 2/b.txt", "utf8", function (err, contents) {
 });
 */
 
+/*
 function sum(a, b) {
   return a + b;
 }
@@ -86,3 +87,35 @@ function doOperation(a, b, op) {
 
 const ans = doOperation(1, 2, divide);
 console.log(ans);
+*/
+
+/*
+const fs = require("fs");
+
+function print(err, data) {
+  console.log(data);
+}
+
+fs.readFile("WEEK 2/a.txt", "utf-8", print);
+
+fs.readFile("WEEK 2/b.txt", "utf-8", print);
+
+console.log("Done!");
+
+function readFile(filePath, encoding, op) {
+  //read file
+  op("Error", "hi there!");
+}
+*/
+
+const afs = require("fs");
+
+function print(err, data) {
+  if (err) {
+    console.log("File not found!");
+  } else {
+    console.log(data);
+  }
+}
+
+fs.readFile("aas.txt", "utf-8", print);
