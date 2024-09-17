@@ -108,14 +108,32 @@ function readFile(filePath, encoding, op) {
 }
 */
 
-const afs = require("fs");
+//const afs = require("fs");
 
-function print(err, data) {
-  if (err) {
-    console.log("File not found!");
-  } else {
-    console.log(data);
-  }
+//function print(err, data) {
+//  if (err) {
+//    console.log("File not found!");
+//  } else {
+//    console.log(data);
+//  }
+//}
+
+//fs.readFile("aas.txt", "utf-8", print);
+
+//console.log("done!");
+function timeout() {
+  console.log("Click the button!");
 }
 
-fs.readFile("aas.txt", "utf-8", print);
+console.log("Hi!");
+
+setTimeout(timeout, 1000);
+
+console.log("Welcome to loupe.");
+
+let c = 0;
+for (let i = 0; i < 10000000; i++) {
+  c = c + 1;
+}
+
+console.log("Expensive operation done!");
