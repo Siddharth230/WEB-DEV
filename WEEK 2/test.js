@@ -37,8 +37,10 @@ const area = rect.area();
 console.log(area);
 */
 
-const date = new Date();
-console.log(date.getFullYear());
+const d = new Date();
+console.log(d.getFullYear());
+console.log(d.getMonth());
+console.log(d.getDate());
 
 const map = new Map();
 map.set("name", "Sid");
