@@ -1,7 +1,5 @@
-let ctr = 0;
-function callback() {
-  document.querySelectorAll("h2")[1].innerHTML = ctr;
-  ctr++;
+function deleteRandomTodo() {
+  const element = document.querySelector("h2");
+  const parentElement = element.parentNode;
+  parentElement.removeChild(element);
 }
-
-setInterval(callback, 1000);
