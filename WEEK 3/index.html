@@ -1,12 +1,25 @@
 <html>
-  <body>
-    <div id="topDiv">hi there</div>
+    <input type="text" />
+    <button onclick="addTodo()">Add todo!</button>
   </body>
-
   <script>
-    const divEl = document.createElement("div");
-    divEl.innerHTML = "hi thereadsfaff";
-    const parentEl = document.querySelector("body");
-    parentEl.appendChild(divEl);
+    let ctr = 1;
+    function addTodo() {
+      const inputEl = document.querySelector("input");
+      const value = inputEl.value;
+
+      const newDivEl = document.createElement("div");
+      newDivEl.setAttribute("id", ctr );
+      newDivEl.innerHTML = `<div><div>` + value + `</div> <button onclick="deleteTodo(`+ ctr +`)">Delete</button> </div>` ;
+      ctr++;
+
+      document.querySelector("body").appendChild(newDivEl);
+
+    }
+
+    function deleteTodo(index) {
+      const element = document.getElementById(index);
+      element.parentNode.removeChild(element);
+    }
   </script>
 </html>
