@@ -1,30 +1,74 @@
-<!DOCTYPE html>
 <html>
   <head>
-    <title>TODO</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Todo List</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
+
   <body>
-    <input type="text" />
-    <button onclick="addTodo()">Add Todo!</button>
+    <h1>Todo list</h1>
+    <div id="todos">
+      <div id="todo-1">
+        <h4>1. Take class</h4>
+        <button onclick="deleteTodo(1)">Delete</button>
+      </div>
+      <div id="todo-2">
+        <h4>2. Go out to eat</h4>
+        <button onclick="deleteTodo(2)">Delete</button>
+      </div>
+    </div>
+    <div>
+      <input id="inp" type="text" placeholder="Enter new Todo" />
+      <button onclick="addTodo()">Add Todo</button>
+    </div>
 
     <script>
-      function addTodo() {
-        const value = document.querySelector("input").value;
-        const spanEl = document.createElement("span");
-        spanEl.innerHTML = value;
-        const buttonEl = document.createElement("button");
-        buttonEl.innerHTML = "Delete";
-        ////
-        const divEl = document.createElement("div");
-        divEl.appendChild(spanEl);
-        divEl.appendChild(buttonEl);
-        ////
+      let currentIndex = 3;
 
-        document.querySelector("body").appendChild(divEl);
+      function addTodo() {
+        const inputEl = document.getElementById("inp");
+        const todoText = inputEl.value.trim();
+
+        if (todoText === "") {
+          alert("Please enter a todo item.");
+          return;
+        }
+
+        const parentEl = document.getElementById("todos");
+
+        // Create new todo div
+        const newTodo = document.createElement("div");
+        newTodo.setAttribute("id", "todo-" + currentIndex);
+
+        // Create new heading element
+        const newHeading = document.createElement("h4");
+        newHeading.textContent = currentIndex + ". " + todoText;
+
+        // Create new button element
+        const newButton = document.createElement("button");
+        newButton.textContent = "Delete";
+        newButton.setAttribute("onclick", "deleteTodo(" + currentIndex + ")");
+
+        // Append elements to the new todo div
+        newTodo.appendChild(newHeading);
+        newTodo.appendChild(newButton);
+
+        // Append new todo to the parent element
+        parentEl.appendChild(newTodo);
+
+        // Increment the index for the next todo item
+        currentIndex++;
+
+        // Clear the input field
+        inputEl.value = "";
       }
+
       function deleteTodo(index) {
-        const element = document.getElementById(index);
-        element.parentNode.removeChild(element);
+        const element = document.getElementById("todo-" + index);
+        if (element) {
+          element.parentNode.removeChild(element);
+        }
       }
     </script>
   </body>
