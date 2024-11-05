@@ -17,45 +17,41 @@
         render();
       }
 
-      /**
-       * Deletes Last Todo Of The Todo List
-       */
+      // Deletes Last Todo Of The Todo List
       function deleteLastTodo() {
         todos.splice(todos.length - 1, 1);
         render();
       }
 
-      /**
-       * Deletes First Todo Of The Todo List
-       */
+      // Deletes First Todo Of The Todo List
       function deleteFirstTodo() {
         todos.splice(0, 1);
         render();
       }
 
-      function deleteTodo() {
-        todos.push({
-          title: document.querySelector("input").value,
-        });
+      function deleteTodo(index) {
+        todos.splice(index, 1);
         render();
       }
 
-      function createTodoComponent(todos) {
+      function createTodoComponent(todos, index) {
         const div = document.createElement("div");
         const h1 = document.createElement("h1");
         const button = document.createElement("button");
         button.innerHTML = "Delete";
-        h1.innerHTML = todo.title;
+        button.setAttribute("onclick", "deleteTodo(" + index + ")");
+        h1.innerHTML = todos.title;
         div.appendChild(h1);
         div.appendChild(button);
         return div;
       }
 
+      // React
       function render() {
         document.querySelector("#todos").innerHTML = "";
         for (let i = 0; i < todos.length; i++) {
-          const element = createTodoComponent(todos[i]);
-          document.querySelector("#todos").appendChild(div);
+          const element = createTodoComponent(todos[i], i);
+          document.querySelector("#todos").appendChild(element);
         }
       }
     </script>
