@@ -1,0 +1,19 @@
+{
+  "name": "todo-app-backend",
+  "version": "1.0.1",
+  "main": "todo.js",
+  "scripts": {
+    "start": "node todo.cjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^12.1.0",
+    "express": "^4.21.1",
+    "todo-app-backend": "file:",
+    "week-4": "file:"
+  }
+}
