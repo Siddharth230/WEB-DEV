@@ -15,5 +15,8 @@
     "express": "^4.21.1",
     "todo-app-backend": "file:",
     "week-4": "file:"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0"
   }
 }
