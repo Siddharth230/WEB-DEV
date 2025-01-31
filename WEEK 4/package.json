@@ -12,7 +12,8 @@
   "dependencies": {
     "chalk": "^5.3.0",
     "commander": "^12.1.0",
-    "express": "^4.21.1",
+    "express": "^4.21.2",
+    "node": "^23.5.0",
     "todo-app-backend": "file:",
     "week-4": "file:"
   },
