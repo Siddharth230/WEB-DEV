@@ -61,13 +61,15 @@ app.delete("/", function(req, res ) {
       msg: "Done!"
     });
   } else {
-    res.sendStatus(411).json({msg:"You have no bad kidneys"});
+    res.sendStatus(411).json({
+      msg:"You have no bad kidneys"
+    });
   }
 })
 
 function isThereAtleastOneUnhealthyKidney() {
   let atleastOneUnhealthyKidney = false;
-  for ( let i = 0; i < users[0].kidneys.length; i++) {
+  for ( let i = 0; i<users[0].kidneys.length; i++) {
     if (!users[0].kidneys[i].healthy) {
       atleastOneUnhealthyKidney = true;
     }
