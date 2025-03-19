@@ -41,7 +41,7 @@ async function main() {
     data: {
       username: "harkirat"
     }
-  });
+  }); 
   //response.data
   console.log(response.data);
 }
