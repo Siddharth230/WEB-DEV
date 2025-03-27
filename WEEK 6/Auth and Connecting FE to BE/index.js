@@ -14,7 +14,16 @@ const users = [];
   ]
 */
 
-app.post("/signup", function (req,res) {
+function logger(req, res, next) {
+  console.log(req.method + "request came");
+  next();
+}
+
+app.get("/", function(req, res) {
+  res.sendFile(__dirname + "/Public/index.html")
+})
+
+app.post("/signup", logger, function (req,res) {
   const username = req.body.username;
   const password = req.body.password;
 
@@ -30,14 +39,14 @@ app.post("/signup", function (req,res) {
   console.log(users);
 })
 
-app.post("/signin", function (req, res) {
+app.post("/signin", logger, function (req, res) {
   const username = req.body.username;
   const password = req.body.password;
 
   let foundUser = null;
 
   for(let i = 0; i < users.length; i++) {
-    if (users[i].username == username&& users[i].password == password){
+    if (users[i].username == username && users[i].password == password){
       foundUser = users[i]
     }
   }
@@ -68,15 +77,25 @@ app.post("/signin", function (req, res) {
   console.log(users);
 })
 
-app.get("/me", function (req,res) {
+function auth(req, res, next) {
   const token = req.headers.token;
 
-  const decodedInformation = jwt.verify(token, JWT_SECRET);
-  
+  const decodedData = jwt.verify(token, JWT_SECRET);
+  if (decodedData.username) {
+    req.username = decodedData.username;
+    next();
+  } else {
+    res.json({
+      messages: "You are not logged in"
+    })
+  }
+}
+
+app.get("/me", logger, auth, function (req,res) {
   let foundUser = null;
 
   for (let i = 0; i < users.length; i++) {
-    if (users[i].username == decodedInformation.username) {
+    if (users[i].username == req.username) {
       foundUser = users[i]
     }
   }
@@ -94,4 +113,4 @@ app.get("/me", function (req,res) {
   }
 })
 
-app.listen(3000);
+app.listen(3000); 
