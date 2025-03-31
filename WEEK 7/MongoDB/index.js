@@ -4,7 +4,7 @@ const {UserModel, TodoModel} = require("./db");
 const jwt = require("jsonwebtoken");
 const argon2 = require("argon2");
 
-mongoose.connect("mongodb+srv://admin:kdGwEcRS011S2WxV@cluster0.ckpmq.mongodb.net/todo-app-database")
+mongoose.connect("")
 
 const JWT_SECRET = "asfqub!23823";
 const app = express();

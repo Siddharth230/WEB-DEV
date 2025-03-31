@@ -1,12 +1,14 @@
 const express = require('express');
 const mongoose = require("mongoose");
-const {UserModel, TodoModel} = require("./db");
 const jwt = require("jsonwebtoken");
 const argon2 = require("argon2");
 
-mongoose.connect("mongodb+srv://admin:kdGwEcRS011S2WxV@cluster0.ckpmq.mongodb.net/todo-app-database")
+const {UserModel, TodoModel} = require("./db");
+const {auth, JWT_SECRET} = require("./auth");
+const {hashedPassword, verifyPassword} = require("./hash")
 
-const JWT_SECRET = "asfqub!23823";
+mongoose.connect("")
+
 const app = express();
 app.use(express.json());
 
@@ -29,16 +31,7 @@ app.get("/", function(req, res) {
   res.sendFile(__dirname + "/Public/index.html")
 })
 
-app.post("/signup", logger, async function (req,res) {
-  try {
-    const email = req.body.email;
-    const password = req.body.password;
-    const name = req.body.name;
-    
-    const hash = await argon2.hash(password, {type: argon2.argon2id});
-    
-    console.log(hash);
-
+app.post("/signup", logger, hashedPassword, async function (req,res) {
     const user = await UserModel.create({
       email: email,
       password: hash,
@@ -49,24 +42,10 @@ app.post("/signup", logger, async function (req,res) {
       message: "You are signed up"
     })
     console.log(user);
-  } catch (err) {
-    res.status(500).json({
-      message: "Error while signing up"
-    })
-  }
 })
 
 
-app.post("/signin", logger, async function (req, res) {
-  const email = req.body.email;
-  const password = req.body.password;
-
-  const user = await UserModel.findOne({
-    email: email,
-  })
-
-  const passwordMatch = await argon2.verify(user.password, password,);
-
+app.post("/signin", logger, verifyPassword, async function (req, res) {
   if (user && passwordMatch) {
     const token = jwt.sign({
       id: user._id.toString()
@@ -81,21 +60,6 @@ app.post("/signin", logger, async function (req, res) {
     })
   }
 })
-
-function auth(req, res, next) {
-  const token = req.headers.token;
-
-  const decodedData = jwt.verify(token, JWT_SECRET);
-  if (decodedData) {
-    req.userId = decodedData.id;
-    next();
-  } else {
-    res.status(403).json({
-      messages: "Incorrect credentials"
-    })
-  }
-
-}
 
 app.post("/todo", auth,async function (req, res) {
   const userId = req.userId;
@@ -124,4 +88,5 @@ app.get("/todos", auth, async function(req, res) {
     todos
   })
 })
+
 app.listen(3000);  
