@@ -1,11 +1,9 @@
 const argon2 = require("argon2");
 
-async function hashedPassword() {
-  const email = req.body.email;
-  const password = req.body.password;
-  const name = req.body.name;
+async function hashedPassword(password) {
+    const hash = await argon2.hash(password, {type: argon2.argon2id});
 
-  const hash = await argon2.hash(password, {type: argon2.argon2id});
+    return hash;
 }
 
 async function verifyPassword() {
