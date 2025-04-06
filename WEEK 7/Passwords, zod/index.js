@@ -8,7 +8,7 @@ const {UserModel, TodoModel} = require("./db");
 const {auth, JWT_SECRET} = require("./auth");
 const {hashedPassword, verifyPassword} = require("./hash")
 
-mongoose.connect("")
+mongoose.connect("mongodb+srv://admin:kdGwEcRS011S2WxV@cluster0.ckpmq.mongodb.net/todo-app-database")
 
 const app = express();
 app.use(express.json());
