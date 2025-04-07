@@ -9,6 +9,13 @@ const { adminRouter } = require("./routes/admin");
 const app = express();
 app.use(express.json());
 
+app.get("/signup", function(req, res) {
+  res.sendFile(__dirname + "/public/signup-page.html")
+})
+
+app.get("/signin", function(req, res) {
+  res.sendFile(__dirname + "/public/signin-page.html")
+})
 
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/course", courseRouter);

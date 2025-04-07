@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "argon2": "^0.41.1",
+    "axios": "^1.8.4",
     "course-selling-app": "file:",
     "dotenv": "^16.4.7",
     "express": "^5.1.0",
