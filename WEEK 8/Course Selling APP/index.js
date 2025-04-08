@@ -9,6 +9,11 @@ const { adminRouter } = require("./routes/admin");
 const app = express();
 app.use(express.json());
 
+app.use(express.static(__dirname + "/public"));
+
+app.get("/", function(req, res) {
+  res.sendFile(__dirname + "/public/home-page.html")
+})
 app.get("/signup", function(req, res) {
   res.sendFile(__dirname + "/public/signup-page.html")
 })

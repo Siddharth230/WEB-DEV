@@ -3,7 +3,7 @@
   <title>SignUp</title>
 </html>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"></script>
-<link rel="stylesheet" href="styles/signup.css">
+<link rel="stylesheet" type="text/css" href="styles/signup.css">
 <script>
   async function signup() {
     const firstName = document.getElementById("signup-firstName").value;
@@ -22,18 +22,20 @@
   }
 </script>
 <body>
-  <div class="header"></div>
+  <div class="header">
+    Course Selling App
+  </div>
   <div class="signup-container">
     <div class="signup-heading">CREATE ACCOUNT</div>
     <div>
-      <div>
+      <div class="signup-name">
         <input id="signup-firstName" type="text" name="firstName" placeholder="First Name">
         <input id="signup-lastName" type="text" name="lastName" placeholder="Last Name">
       </div>
-      <div>
+      <div class="signup-email">
         <input id="signup-email" type="text" name="email" placeholder="Email">
       </div>
-      <div>
+      <div class="signup-password">
         <input id="signup-password" type="password" name="password" placeholder="Password">
       </div>
       <button class="signup-button" onclick="signup()">SIGN UP</button>
