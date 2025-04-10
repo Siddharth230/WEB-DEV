@@ -1,0 +1,9 @@
+Virtual DOM, Diffing, Bulk Updates, Reconciliations 
+
+context api
+
+prop drilling
+
+useRef, react-hook-forms
+
+state variables
