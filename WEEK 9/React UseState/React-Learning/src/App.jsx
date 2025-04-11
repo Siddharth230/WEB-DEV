@@ -1,46 +1,45 @@
 import { useState, useEffect } from "react";
 
+// useEffect, dependency array, cleanups
 function App() {
-  let [counterVisible, setCounterVisible] = useState(true);
   const [count, setCount] = useState(0);
-
-  useEffect(function() {
-    setInterval(function() {
-      setCounterVisible(c => !c)
-      let clock = setInterval(function() {
-        // setCount(count => count + 1);
-        console.log("from inside the setInterval");
-        setCount(c => c + 1)
-      }, 1000);
-  
-      return  function() {
-        console.log("on unmount")
-        clearInterval(clock)
-      }
-    }, 5000)
-  }, [])
-
-  return <div>
-    hi  
-    <Counter count={count}></Counter> 
-    <br/>hello
-  </div>
-}
-
-function Counter() {
-  console.log("counter");
-
-  // Guard our setInterval from re-renders
-  useEffect(function(props) {
-    console.log("on mount");
-  }, [])
+  const [count2, setCount2] = useState(0);
 
   function increaseCount() {
-    setCount(count + 1);
+    setCount(c => c + 1);
   }
+  
+  function decreaseCount2() {
+    setCount2(c => c + 1);
+  }
+
   return <div>
-    <h1>{props.count}</h1>
+    <Counter count={count} count2={count2}/>
     <button onClick={increaseCount}>Increase count</button>
+    <button onClick={decreaseCount2}>Decrease count2</button>
+  </div>
+}
+// mounting, re-rendering, unmounting
+function Counter(props) {
+  useEffect(() => {
+    console.log("mount");
+
+    return () => {
+      console.log("unmount");
+    }
+  }, []);
+
+  useEffect(function() {
+    console.log("count has changed");
+
+    return () => {
+      console.log("cleanup inside second effect")
+    }
+  }, [props.count])
+
+  return <div>
+    Counter1 {props.count}<br/>
+    Counter2 {props.count2}
   </div>
 }
 
