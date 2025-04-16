@@ -39,6 +39,7 @@ const ToggleMessage = () => {
   
   // when the value of a state variable changes,
   // the component that uses the state variable re-renders
+  console.log("re-render")
   function increment() {
     setNotificationCount(notificationCount + 1);
   }
