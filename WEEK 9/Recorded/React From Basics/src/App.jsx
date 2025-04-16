@@ -1,83 +1,57 @@
-import { useState } from "react";
+import { useState } from "react"; 
+import { PostComponent } from "./Post"; 
 
-function App() {
-  return (
-    <div style={{ backgroundColor: "#dfe6e9", height: "100vh"}}>
-      <ToggleMessage />
-      <ToggleMessage />
-      <ToggleMessage />
-      {/* <div>
-      </div>
-      <div style={{ display: "flex", justifyContent: "center"}}>
-        <div>
-          <div>
-            <PostComponent
-              name={"Siddharth"}
-              subtitle={"20 followers"}
-              time={"2m ago"}
-              image={"https://appx-wsb-gcp-mcdn.akamai.net.in/subject/2023-01-17-0.17044360120951185.jpg"}
-              description={"Want to know how to win big? Check out how these folks won $6000 in bounties."}
-            />
-            <br />
-          </div>
-          <div>
-            <PostComponent
-              name={"Raman"}
-              subtitle={"Promoted"}
-              image={"https://appx-wsb-gcp-mcdn.akamai.net.in/subject/2023-01-17-0.17044360120951185.jpg"}
-              description={"How to get hired in 2025? I lost my job in 2023, this is the roadmap I followed to get a job"}/>
-            <br />
-          </div>
-        </div>
-      </div> */}
-    </div>
-  )
-}
+function App() { 
+  const [count, setCount] = useState(1);
 
-const ToggleMessage = () => {
-  const[notificationCount, setNotificationCount] = useState(0);  // Defining a new state variable
-  
-  // when the value of a state variable changes,
-  // the component that uses the state variable re-renders
-  console.log("re-render")
-  function increment() {
-    setNotificationCount(notificationCount + 1);
+  function increaseCount() { 
+    setCount(count + 1);
   }
+  
 
-  return (
-    <div style={{ marginTop: 20}}>
-      <button onClick={increment}>
-        Increase Count  
-      </button>
-      {notificationCount}
+  return <div>
+    <div style={{display: "flex"}}>
+      <div style={{backgroundColor: "red", borderRadius: 20, width: 20, height: 25, paddingLeft: 10, paddingTop: 5}}>
+        {count}
+      </div>
     </div>
-  )
-}
-// const style = { width: 200, backgroundColor: "white", borderRadius: 10, borderColor: "grey", borderWidth: 1, padding: 20}
+    <img style={{cursor: "pointer"}} src={"https://static.vecteezy.com/system/resources/previews/015/934/666/original/bell-icon-simple-element-symbol-for-template-design-can-be-used-for-website-and-mobile-application-vector.jpg"} width={40}/>
+    <button onClick={increaseCount}>Increase the count</button>
+  </div>
 
-// function PostComponent({ name, subtitle, time, image, description}) {
-//   return <div style={style}>
-//     <div style={{display: "flex"}}>
-//       <img src={image} style={{
-//         width: 30, height: 30,
-//         borderRadius: 20
-//       }}/>
-//       <div style={{fontSize: 10, marginLeft: 10}}>
-//         <b>
-//           {name}
-//         </b>
-//         <div>{subtitle}</div>
-//         {(time !== undefined) ? <div style={{display: "flex"}}>
-//           <div>{time}</div>
-//           <img src={"https://media.istockphoto.com/id/931336618/vector/clock-vector-icon-isolated.jpg?s=612x612&w=0&k=20&c=I8EBJl8i6olqcrhAtKko74ydFEVbfCQ6s5Pbsx6vfas="} style={{width: 15, height: 15}}/>
-//         </div>: null}
-//       </div>
-//     </div>
-//     <div style={{fontSize: 12}}>
-//       {description}
-//     </div>
-//   </div>
-// }
-// structuring your app into components
-// Defaulting a state of your application
-export default App
+  // const [posts, setPosts] = useState([]); 
+
+  // const postComponents = posts.map(post => 
+  //   <PostComponent 
+  //     name={post.name} 
+  //     subtitle={post.subtitle}
+  //     time={post.title}
+  //     image={post.image}
+  //     description={post.description} 
+  //   />
+  // )
+
+  // function addPost() {
+  //   setPosts([...posts, {
+  //     name: "Siddhartha", 
+  //     subtitle: "2000 followers", 
+  //     time: "2m ago", 
+  //     image: "https://assets-prd.ignimgs.com/2021/10/14/demonslayer-art-1634244394273.png",
+  //     description: "Hey Everyone!" 
+  //   }])
+  // }
+
+  // return ( 
+  //   <div style={{background: "#dfe6e9", height: "100vh", }}> 
+  //     <button onClick={addPost}>Add post</button> 
+  //     <div style={{display: "flex", justifyContent: "center" }}> 
+  //       <div> 
+  //         {postComponents} 
+  //       </div>
+  //     </div>
+  //   </div>
+  // )
+}
+
+// Exporting App component as the default export
+export default App;
