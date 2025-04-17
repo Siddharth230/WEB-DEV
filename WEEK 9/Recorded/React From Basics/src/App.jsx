@@ -1,52 +1,80 @@
-import { useState } from "react"; 
-import { PostComponent } from "./Post"; 
+import { useState, useEffect } from "react";
 
-function App() { 
-  const [count, setCount] = useState(1);
+function App() {
+  const [currentTab, setCurrentTab] = useState(1);
+  const [tabData, setTabData] = useState({});
+  const [loading, setLoading] = useState(true);
 
-  function increaseCount() { 
-    setCount(count + 1);
-  }
-  
+  useEffect(
+    function () {
+      setLoading(true);
+      fetch("https://jsonplaceholder.typicode.com/todos/" + currentTab).then(
+        async (res) => {
+          const json = await res.json();
+          setTabData(json);
+          setLoading(false);
+        }
+      );
+    },
+    [currentTab]
+  );
 
-  return <div>
-    <div style={{display: "flex"}}>
-      <div style={{backgroundColor: "red", borderRadius: 20, width: 20, height: 25, paddingLeft: 10, paddingTop: 5}}>
-        {count}
-      </div>
+  return (
+    <div>
+      <button
+        onClick={() => setCurrentTab(1)}
+        style={{ color: currentTab == 1 ? "red" : "black" }}>
+        Todo #1
+      </button>
+      <button
+        onClick={() => setCurrentTab(2)}
+        style={{ color: currentTab == 2 ? "red" : "black" }}>
+        Todo #2
+      </button>
+      <button
+        onClick={() => setCurrentTab(3)}
+        style={{ color: currentTab == 3 ? "red" : "black" }}>
+        Todo #3
+      </button>
+      <button
+        onClick={() => setCurrentTab(4)}
+        style={{ color: currentTab == 4 ? "red" : "black" }}>
+        Todo #4
+      </button>
+      <br />
+      <br />
+      {loading ? "Loading..." : tabData.title}
     </div>
-    <img style={{cursor: "pointer"}} src={"https://static.vecteezy.com/system/resources/previews/015/934/666/original/bell-icon-simple-element-symbol-for-template-design-can-be-used-for-website-and-mobile-application-vector.jpg"} width={40}/>
-    <button onClick={increaseCount}>Increase the count</button>
-  </div>
+  );
 
-  // const [posts, setPosts] = useState([]); 
+  // const [posts, setPosts] = useState([]);
 
-  // const postComponents = posts.map(post => 
-  //   <PostComponent 
-  //     name={post.name} 
+  // const postComponents = posts.map(post =>
+  //   <PostComponent
+  //     name={post.name}
   //     subtitle={post.subtitle}
   //     time={post.title}
   //     image={post.image}
-  //     description={post.description} 
+  //     description={post.description}
   //   />
   // )
 
   // function addPost() {
   //   setPosts([...posts, {
-  //     name: "Siddhartha", 
-  //     subtitle: "2000 followers", 
-  //     time: "2m ago", 
+  //     name: "Siddhartha",
+  //     subtitle: "2000 followers",
+  //     time: "2m ago",
   //     image: "https://assets-prd.ignimgs.com/2021/10/14/demonslayer-art-1634244394273.png",
-  //     description: "Hey Everyone!" 
+  //     description: "Hey Everyone!"
   //   }])
   // }
 
-  // return ( 
-  //   <div style={{background: "#dfe6e9", height: "100vh", }}> 
-  //     <button onClick={addPost}>Add post</button> 
-  //     <div style={{display: "flex", justifyContent: "center" }}> 
-  //       <div> 
-  //         {postComponents} 
+  // return (
+  //   <div style={{background: "#dfe6e9", height: "100vh", }}>
+  //     <button onClick={addPost}>Add post</button>
+  //     <div style={{display: "flex", justifyContent: "center" }}>
+  //       <div>
+  //         {postComponents}
   //       </div>
   //     </div>
   //   </div>
