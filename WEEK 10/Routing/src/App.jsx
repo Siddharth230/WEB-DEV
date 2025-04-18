@@ -4,9 +4,9 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-        <Link to="/">Allen</Link>|
-        <Link to="/neet/online-coaching-class-11">Class 11</Link>|
-        <Link to="/neet/online-coaching-class-12">Class 12</Link>
+        <Link to="/"> Allen </Link>|
+        <Link to="/neet/online-coaching-class-11"> Class 11 </Link>|
+        <Link to="/neet/online-coaching-class-12"> Class 12 </Link>
         <Routes>
           <Route
             path="/neet/online-coaching-class-11"
