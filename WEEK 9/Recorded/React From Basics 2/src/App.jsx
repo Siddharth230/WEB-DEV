@@ -1,29 +1,30 @@
+import React from "react";
+
 function App() {
-  return (
-    <div>
-      <Card>
-        <h2>Card Title</h2>
-        <p>This is some content inside the card.</p>
-      </Card>
-      <Card>
-        <h2>Another Card</h2>
-        <p>This card has different content!</p>
-      </Card>
-    </div>
-  );
+  const todos = [
+    {
+      id: 1,
+      title: "Go to gym",
+      done: false,
+    },
+    {
+      id: 2,
+      title: "Eat food",
+      done: true,
+    },
+  ];
+
+  const todosComponent = todos.map((todo) => (
+    <Todo key={todo.id} title={todo.title} done={todo.done} />
+  ));
+
+  return <div>{todosComponent}</div>;
 }
 
-function Card({ children }) {
+function Todo({ id, title, done }) {
   return (
-    <div
-      style={{
-        border: "1px solid #ccc",
-        borderRadius: "5px",
-        padding: "20px",
-        margin: "10px",
-        boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.1)",
-      }}>
-      {children}
+    <div key={id}>
+      {title} - {done ? "Done!" : "Not done"}
     </div>
   );
 }
