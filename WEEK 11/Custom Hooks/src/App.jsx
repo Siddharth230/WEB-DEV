@@ -1,23 +1,32 @@
 import { useState } from "react";
-
-function useCounter() {
-  const [count, setCount] = useState(0);
-
-  function increaseCount() {
-    setCount(count + 1);
-  }
-
-  return {
-    count,
-    increaseCount,
-  };
-}
+import { usePrev } from "./hooks/usePrev";
 
 function App() {
-  const { count, increaseCount } = useCounter();
+  const [state, setState] = useState(0);
+  const prev = usePrev(state);
+
   return (
     <div>
-      <button onClick={increaseCount}>Increase {count}</button>
+      <p>{state}</p>
+      <button
+        onClick={() => {
+          setState((c) => c + 1);
+        }}>
+        Increase
+      </button>
+      <button
+        onClick={() => {
+          setState((c) => c - 1);
+        }}>
+        Decrease
+      </button>
+      <button
+        onClick={() => {
+          setState(0);
+        }}>
+        Reset
+      </button>
+      <p>Previous value was {prev}</p>
     </div>
   );
 }
