@@ -1,33 +1,37 @@
-import { useState } from "react";
-import { usePrev } from "./hooks/usePrev";
+import { useEffect, useState } from "react";
+
+const useDebounce = (value, delay) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+};
 
 function App() {
-  const [state, setState] = useState(0);
-  const prev = usePrev(state);
+  const [inputVal, setInputVal] = useState("");
+  const debouncedValue = useDebounce(inputVal, 200);
+
+  function change(e) {
+    setInputVal(e.target.value);
+  }
+
+  useEffect(() => {
+    console.log("expensive operation");
+  }, [debouncedValue]);
 
   return (
-    <div>
-      <p>{state}</p>
-      <button
-        onClick={() => {
-          setState((c) => c + 1);
-        }}>
-        Increase
-      </button>
-      <button
-        onClick={() => {
-          setState((c) => c - 1);
-        }}>
-        Decrease
-      </button>
-      <button
-        onClick={() => {
-          setState(0);
-        }}>
-        Reset
-      </button>
-      <p>Previous value was {prev}</p>
-    </div>
+    <>
+      <input type="text" onChange={change} />
+    </>
   );
 }
 
