@@ -1,9 +1,10 @@
-import { RecoilRoot, useRecoilValue, useSetRecoilState } from "recoil";
+import { RecoilRoot, useRecoilValue } from "recoil";
 import {
   jobsAtom,
   messagingAtom,
   networkAtom,
   notificationsAtom,
+  totalNotificationSelector,
 } from "./store/atoms/atom";
 
 function App() {
@@ -13,50 +14,38 @@ function App() {
     </RecoilRoot>
   );
 }
+
 function MainApp() {
+  const networkNotificationCount = useRecoilValue(networkAtom);
+  const jobsNotificationCount = useRecoilValue(jobsAtom);
+  const notificationNotificationCount = useRecoilValue(notificationsAtom);
+  const messagingNotificationCount = useRecoilValue(messagingAtom);
+
+  const totalNotificationCount = useRecoilValue(totalNotificationSelector);
   return (
     <>
       <button>Home</button>
-      <NetworkButton />
-      <JobsButton />
-      <MessagingButton />
-      <NotificationsButton />
-      <ButtonUpdater />
-    </>
-  );
-}
-
-function NetworkButton() {
-  const count = useRecoilValue(networkAtom);
-  return <button>My network ({count >= 100 ? "99+" : count})</button>;
-}
-
-function JobsButton() {
-  const count = useRecoilValue(jobsAtom);
-  return <button>Jobs ({count >= 100 ? "99+" : count})</button>;
-}
-
-function MessagingButton() {
-  const count = useRecoilValue(messagingAtom);
-  return <button>Messaging ({count >= 100 ? "99+" : count})</button>;
-}
-
-function NotificationsButton() {
-  const count = useRecoilValue(notificationsAtom);
-  return <button>Notifications ({count >= 100 ? "99+" : count})</button>;
-}
-
-function ButtonUpdater() {
-  const setMessagingNotificationCount = useSetRecoilState(messagingAtom);
-  return (
-    <div>
-      <button
-        onClick={() => {
-          setMessagingNotificationCount((c) => c + 1);
-        }}>
-        Me
+      <button>
+        My network (
+        {networkNotificationCount >= 100 ? "99+" : networkNotificationCount})
       </button>
-    </div>
+      <button>
+        Jobs ({jobsNotificationCount >= 100 ? "99+" : jobsNotificationCount})
+      </button>
+      <button>
+        Messaging (
+        {messagingNotificationCount >= 100 ? "99+" : messagingNotificationCount}
+        )
+      </button>
+      <button>
+        Notifications (
+        {notificationNotificationCount >= 100
+          ? "99+"
+          : notificationNotificationCount}
+        )
+      </button>
+      <button>Me ({totalNotificationCount})</button>
+    </>
   );
 }
 
