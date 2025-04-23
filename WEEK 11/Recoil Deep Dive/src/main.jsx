@@ -3,8 +3,4 @@ import "./index.css";
 import App from "./App.jsx";
 import { RecoilRoot } from "recoil";
 
-createRoot(document.getElementById("root")).render(
-  <RecoilRoot>
-    <App />
-  </RecoilRoot>
-);
+createRoot(document.getElementById("root")).render(<App />);
