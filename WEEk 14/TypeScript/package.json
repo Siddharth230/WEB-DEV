@@ -10,7 +10,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "tslint": "^5.20.1",
-    "typescript": "file:"
+    "tslint": "^5.20.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
   }
 }

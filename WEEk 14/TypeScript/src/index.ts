@@ -1,46 +1,22 @@
-interface Address {
-  city: string;
-  country: string;
-  pincode: number;
-}
-
-interface User {
+abstract class User {
   name: string;
-  age: number;
-  address?: Address;
-}
+  constructor(name: string) {
+    this.name = name;
+  }
 
-interface Office {
-  address: Address;
-}
-
-let user: User = {
-  name: "Siddharth",
-  age: 22,
-  address: {
-    city: "Pune",
-    country: "India",
-    pincode: 411043,
-  },
-};
-
-let user2: User = {
-  name: "Om",
-  age: 15,
-};
-
-function isLegal(user: User) {
-  if (user.age >= 18) {
-    return true;
-  } else {
-    return false;
+  abstract greet(): string;
+  hello() {
+    console.log("Hi there!");
   }
 }
 
-const ans = isLegal(user);
-
-if (ans) {
-  console.log("I am legal");
-} else {
-  console.log("I am not legal");
+class Employee extends User {
+  name: string;
+  constructor(name: string) {
+    super(name)
+    this.name = name;
+  }
+  greet() {
+    return "Hi " + this.name;
+  }
 }
