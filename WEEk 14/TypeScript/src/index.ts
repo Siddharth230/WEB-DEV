@@ -1,24 +1,46 @@
-interface Manager {
+interface Address {
+  city: string;
+  country: string;
+  pincode: number;
+}
+
+interface User {
   name: string;
   age: number;
+  address?: Address;
 }
 
-interface Employee {
-  name: string;
-  department: string;
+interface Office {
+  address: Address;
 }
 
-type TeamLead = Manager & Employee;
-
-let t: TeamLead = {
+let user: User = {
   name: "Siddharth",
   age: 22,
-  department: "AI",
+  address: {
+    city: "Pune",
+    country: "India",
+    pincode: 411043,
+  },
 };
 
-type k = string | number;
+let user2: User = {
+  name: "Om",
+  age: 15,
+};
 
-function sum2(a: k, b: k) {
-  console.log((a as any) + (b as any));
+function isLegal(user: User) {
+  if (user.age >= 18) {
+    return true;
+  } else {
+    return false;
+  }
 }
-sum2(2, 4);
+
+const ans = isLegal(user);
+
+if (ans) {
+  console.log("I am legal");
+} else {
+  console.log("I am not legal");
+}
