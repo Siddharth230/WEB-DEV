@@ -1,4 +1,5 @@
 {
   "workbench.activityBar.location": "top",
-  "editor.cursorBlinking": "phase"
+  "editor.cursorBlinking": "phase",
+  "compile-hero.disable-compile-files-on-did-save-code": false
 }
