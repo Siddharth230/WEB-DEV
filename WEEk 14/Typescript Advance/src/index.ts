@@ -1,18 +1,32 @@
-interface User {
-  name: string;
-  age: number;
+type User = {
+  id: string;
+  username: string;
 }
 
-function sumOfAge(user1: User, user2: User) {
-  return user1.age + user2.age;
+// type Users = {
+//   [key: string]: User;
+// }
+
+type Users = Record<string, User>
+
+const users: Users = {
+  "ras@qd1": {
+    id: "ras@qd1",
+    username: "Siddharth"
+  },
+  "ras@sd1": {
+    id: "ras@sd1",
+    username: "Om"
+  },
 }
 
-const result = sumOfAge({
-  name: "Siddharth",
-  age: 22
-}, {
-  name: "Om",
-  age: 18
-})
+users["ras@qd1"].username;
 
-console.log(result)
+
+const users1 = new Map()
+users1.set("ras@qwn1", {name: "Siddharth", age: 22, email: "sidlok@gmail.com"})
+users1.set("ras@as1", { name: "Om", age: 12, email: "om@gmail.com" })
+
+const user1 = users1.get("ras@qwn1")
+
+console.log(users1);
