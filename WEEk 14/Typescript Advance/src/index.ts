@@ -1,37 +1,28 @@
-type User = {
-  id: string;
-  username: string;
-}
+import { z } from 'zod';
+import express from "express";
 
-// type Users = {
-//   [key: string]: User;
-// }
+const app = express();
 
-type Users = Record<string, User>
+const userProfileSchema = z.object({
+  name: z.string().min(1, { message: "Name cannot be empty" }),
+  email: z.string().email({ message: "Invalid email format" }),
+  age: z.number().min(18, {message: "You must be at least 18 years old"}).optional()
+})
 
-const users: Users = {
-  "ras@qd1": {
-    id: "ras@qd1",
-    username: "Siddharth"
-  },
-  "ras@sd1": {
-    id: "ras@sd1",
-    username: "Om"
-  },
-}
+export type FinalUserSchema = z.infer<typeof userProfileSchema>
 
-users["ras@qd1"].username;
+app.put("/user", (req, res) => {
+  const { success } = userProfileSchema.safeParse(req.body);
+  const updateBody: FinalUserSchema = req.body; //how to assign a type to updateBody?
 
-type User1 = {
-  name: string;
-  age: number;
-  email: string
-}
+  if (!success) {
+    res.status(411).json({});
+    return
+  }
+  //update database here
+  res.json({
+    message: "User updated"
+  })
+})
 
-const users1 = new Map<string, User1>()
-users1.set("ras@qwn1", {name: "Siddharth", age: 22, email: "sidlok@gmail.com"})
-users1.set("ras@as1", { name: "Om", age: 12, email: "om@gmail.com" })
-
-const user1 = users1.get("ras@qwn1")
-
-console.log(users1);
+app.listen(3000);
