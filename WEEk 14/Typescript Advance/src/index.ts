@@ -22,8 +22,13 @@ const users: Users = {
 
 users["ras@qd1"].username;
 
+type User1 = {
+  name: string;
+  age: number;
+  email: string
+}
 
-const users1 = new Map()
+const users1 = new Map<string, User1>()
 users1.set("ras@qwn1", {name: "Siddharth", age: 22, email: "sidlok@gmail.com"})
 users1.set("ras@as1", { name: "Om", age: 12, email: "om@gmail.com" })
 
