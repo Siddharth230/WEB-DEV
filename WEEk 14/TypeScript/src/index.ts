@@ -1,22 +1,17 @@
-abstract class User {
-  name: string;
-  constructor(name: string) {
-    this.name = name;
-  }
-
-  abstract greet(): string;
-  hello() {
-    console.log("Hi there!");
-  }
+interface Users {
+  firstName: string;
+  lastName: string;
+  age: number
 }
 
-class Employee extends User {
-  name: string;
-  constructor(name: string) {
-    super(name)
-    this.name = name;
-  }
-  greet() {
-    return "Hi " + this.name;
-  }
+function filterUsers(users: Users[]) {
+  return users.filter((users) => users.age > 18)
 }
+
+const filteredUsers = filterUsers([{
+  firstName: "Siddharth",
+  lastName: "Lokhande",
+  age: 22,}
+])
+
+console.log(filteredUsers)   
