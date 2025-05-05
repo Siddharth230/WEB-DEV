@@ -20,7 +20,19 @@ export function Card() {
             </div>
           </div>
         </div>
-        <div></div>
+        <div className="pt-4">
+          {/* <iframe
+            className="w-full"
+            src="https://www.youtube.com/embed/pXJ2qoGU88g?si=phJShIS1u69x0QGk"
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen></iframe> */}
+          <blockquote className="twitter-tweet">
+            <a href="https://twitter.com/akash_wt/status/1919091401104449560?ref_src=twsrc%5Etfw"></a>
+          </blockquote>
+        </div>
       </div>
     </>
   );
