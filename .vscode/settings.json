@@ -1,7 +1,3 @@
 {
-  "workbench.activityBar.location": "top",
-  "editor.cursorBlinking": "phase",
-  "compile-hero.disable-compile-files-on-did-save-code": false,
-  "cSpell.words": ["tsnd"],
   "postman.settings.dotenv-detection-notification-visibility": false
 }
