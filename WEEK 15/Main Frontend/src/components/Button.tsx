@@ -5,6 +5,7 @@ interface ButtonProps {
   text: string;
   size: "sm" | "md" | "lg";
   startIcon?: ReactElement;
+  onClick?: () => void;
 }
 
 const variantStyles = {
@@ -23,6 +24,7 @@ const defaultStyles = "rounded-md flex items-center font-light";
 export function Button(props: ButtonProps) {
   return (
     <button
+      onClick={props.onClick}
       className={`${variantStyles[props.variant]} ${defaultStyles} ${
         sizeStyles[props.size]
       }`}>
