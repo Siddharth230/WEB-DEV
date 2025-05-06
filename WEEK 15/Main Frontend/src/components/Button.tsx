@@ -6,6 +6,8 @@ interface ButtonProps {
   size: "sm" | "md" | "lg";
   startIcon?: ReactElement;
   onClick?: () => void;
+  fullWidth?: boolean;
+  loading?: boolean;
 }
 
 const variantStyles = {
@@ -27,7 +29,10 @@ export function Button(props: ButtonProps) {
       onClick={props.onClick}
       className={`${variantStyles[props.variant]} ${defaultStyles} ${
         sizeStyles[props.size]
-      }`}>
+      } ${props.fullWidth ? "w-full justify-center " : ""} ${
+        props.loading ? "opacity-50" : ""
+      }`}
+      disabled={props.loading}>
       {props.startIcon ? <div className="pr-2">{props.startIcon}</div> : null}
       {props.text}
     </button>
