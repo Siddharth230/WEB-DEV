@@ -12,9 +12,9 @@ let allSockets: User[] = [];
 wss.on("connection", (socket) => {
 
   socket.on("message", (message) => {
-    const parsedMessage = JSON.parse(message as unknown as string)
+    const parsedMessage = JSON.parse(message.toString())
 
-    if (parsedMessage.type == "join") {
+    if (parsedMessage.type === "join") {
       console.log("user joined room " + parsedMessage.payload.roomId);
       allSockets.push({
         socket,
@@ -28,7 +28,7 @@ wss.on("connection", (socket) => {
 
       let currentUserRoom = null;
       for (let i = 0; i < allSockets.length; i++) {
-        currentUserRoom = allSockets[i].room
+        currentUserRoom = allSockets[i].room;
       }
 
       for (let i = 0; i < allSockets.length; i++) {
