@@ -14,7 +14,7 @@ const client = new Client({
 async function main() {
   try {
     await client.connect();
-    console.log("🎉 Successfully connected to PostgreSQL Database!");
+    console.log("🎉 Successfully Connected to PostgreSQL Database!");
   } catch (err) {
     console.log('❌ Database connection or query error:', err);
   }
@@ -25,14 +25,19 @@ main();
 app.post("/signup", async (req, res) => {
   try {
     const { username, email, password } = req.body;
+    const { city, country, street, pincode } = req.body;
 
-    const insertQuery = `INSERT INTO users (username,email,password) VALUES ($1, $2, $3);`;
+    const insertQuery = `INSERT INTO users (username,email,password) VALUES ($1, $2, $3) RETURNING id;`;
     const values = [username, email, password];
-    
     const response = await client.query(insertQuery, values);
 
-    console.log(response);
+    const user_id = response.rows[0].id;
 
+    const addressInsertQuery = `INSERT INTO addresses (city,country,street, pincode, user_id) VALUES ($1, $2, $3, $4, $5);`;
+    const addressValues = [city, country, street, pincode, user_id];
+    const addressResponse = await client.query(addressInsertQuery, addressValues)
+
+    console.log(response, addressResponse);
     res.json({
       message: "You have signed up"
     })
