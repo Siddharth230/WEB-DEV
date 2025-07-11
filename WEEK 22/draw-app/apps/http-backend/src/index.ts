@@ -3,7 +3,7 @@ import express from "express";
 import dotenv from "dotenv";import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "@repo/backend-common/config";
 import { middleware } from "./middleware";
-import { CreateUserSchema, SignInSchema } from "@repo/common/types";
+import { CreateRoomSchema, CreateUserSchema, SignInSchema } from "@repo/common/types";
 
 dotenv.config();
 const app = express();
@@ -80,9 +80,19 @@ app.post("/signin", async (req, res) => {
 })
 
 app.post("/room", middleware, (req, res) => {
+  const data = CreateRoomSchema.safeParse(req.body);
+
+  if (!data.success) {
+    res.json({
+      message: "Incorrect inputs"
+    })
+    return;
+  }
   
-  res.json({
-    
+  // db call
+  
+  res.json({  
+    roomId: 123
   })
 })
 
