@@ -4,39 +4,61 @@ import dotenv from "dotenv";import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "@repo/backend-common/config";
 import { middleware } from "./middleware";
 import { CreateRoomSchema, CreateUserSchema, SignInSchema } from "@repo/common/types";
+import { prismaClient } from "@repo/db/client";
+import cors from "cors";
 
 dotenv.config();
+const prisma = prismaClient;
+
 const app = express();
-
 app.use(express.json())
+app.use(cors())
 
-
-app.post("/signup", async (req, res) => {
+app.post("/signup", async (req, res): Promise<void> => {
   try {
     const { username, password, email } = req.body;
 
-    const parsedDataWithSuccess = CreateUserSchema.safeParse(req.body);
+    const parsedData = CreateUserSchema.safeParse(req.body);
 
-    if (!parsedDataWithSuccess) { 
+    if (!parsedData.success) {
+      console.log(parsedData.error)
+
       return res.status(400).json({
         message: "Invalid inputs",
       })
     }
+    
+    const existingUser = await prisma.user.findFirst({
+      where: {
+        OR: [
+          { email },
+          { username }
+        ]
+      }
+    })
+    
+    if (existingUser?.email === email) {
+      return res.status(400).json({ message: "Email already exists" })
+    }
+    
+    if (existingUser?.username === username) {
+      return res.status(400).json({ message: "Username already exists" })
+    }
 
-    // const existingUserEmail = 
+    const hash = await argon2.hash(parsedData.data.password, { type: argon2.argon2id })
 
-    // const existingUsername = 
-
-    const hash = await argon2.hash(password, { type: argon2.argon2id })
-
-    const user = ({
-      username,
-      email,
-      password: hash
+    const user = await prisma.user.create({
+      data: {
+        username: parsedData.data.username,
+        email: parsedData.data.email,
+        password: hash}
     })
 
-    res.json({
+    console.log(user);
+
+    res.status(201).json({
       message: "You are signed up", 
+      userId: user.id
     })
   } catch (e) {
     res.status(500).json({
@@ -45,25 +67,29 @@ app.post("/signup", async (req, res) => {
   }
 })
 
-app.post("/signin", async (req, res) => {
+app.post("/signin", async (req, res): Promise<void>  => {
   const { username, password } = req.body;
 
-  const parsedDataWithSuccess = SignInSchema.safeParse(req.body);
+  const parsedData = SignInSchema.safeParse(req.body);
 
-  if (!parsedDataWithSuccess) {
+  if (!parsedData.success) {
     return res.status(400).json({
       message: "Invalid inputs"
     })
   }
 
-  // const user 
+  const user = await prisma.user.findUnique({
+    where: {
+      username
+    }
+  })
 
-  // const passwordMatch = await argon2.verify(user.password, password)
+  const passwordMatch = await argon2.verify(user.password, password)
 
   if (user && passwordMatch) {
     const token = jwt.sign(
       {
-        id: user._id.toString(),
+        id: user.id,
       },
       JWT_SECRET
     )
@@ -76,7 +102,7 @@ app.post("/signin", async (req, res) => {
     })
   }
 
-  // console.log(user.email)
+  console.log(user.email)
 })
 
 app.post("/room", middleware, (req, res) => {

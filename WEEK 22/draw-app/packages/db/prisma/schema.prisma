@@ -14,7 +14,7 @@ model User {
   username  String    @unique
   password  String
   email     String    @unique
-  photo     String
+  photo     String?
   rooms     Room[]
   chats     Chat[]
 }
