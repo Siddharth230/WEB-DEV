@@ -14,7 +14,7 @@ const app = express();
 app.use(express.json())
 app.use(cors())
 
-app.post("/signup", async (req, res): Promise<void> => {
+app.post("/signup", async (req, res) => {
   try {
     const { username, password, email } = req.body;
 
@@ -67,7 +67,7 @@ app.post("/signup", async (req, res): Promise<void> => {
   }
 })
 
-app.post("/signin", async (req, res): Promise<void>  => {
+app.post("/signin", async (req, res) => {
   const { username, password } = req.body;
 
   const parsedData = SignInSchema.safeParse(req.body);
