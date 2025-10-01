@@ -1,0 +1,41 @@
+
+.header {
+  display: flex;
+  justify-content: center;
+  background-color: grey;
+  height: 20px;
+  margin-bottom: 20px;
+}
+
+body{
+  margin: 0px;
+}
+
+.signup-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: red;
+  height: 200px;
+  width: 400px;
+  padding: 15px;
+}
+
+.signup-heading {
+  display: block;
+  background-color: white;
+}
+
+.signup-name{
+  display: flex;
+}
+
+.signup-email, .signup-password {
+  width: 300px;
+}
+
+.signup-button {
+  background-color: orange;
+  color: white;
+}

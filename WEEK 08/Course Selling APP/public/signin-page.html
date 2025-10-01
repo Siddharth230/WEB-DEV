@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Signin</title>
+  </head>
+  <link rel="stylesheet" type="text/css" href="styles/signin.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+  <script>
+    async function signin() {
+      const email = document.getElementById("signin-email").value;
+      const password = document.getElementById("signin-password").value;
+
+      const response = await axios.post("http://localhost:3000/api/v1/user/signin", {
+        email: email,
+        password: password
+      })
+
+      localStorage.setItem("token", response.data.token);
+
+      alert("Signed in successfully")
+    }
+  </script>
+  <body>
+    <div>
+      <div>
+        <input id="signin-email" type="text" name="email" placeholder="Email">
+      </div>
+      <div>
+        <input id="signin-password" type="password" name="password" placeholder="Password">
+      </div>
+      <button onclick="signin()">Sign in</button>
+      <div>Don't have account?
+        <a href="http://localhost:3000/signup">Sign up</a>
+      </div>
+    </div>
+  </body>
+</html>

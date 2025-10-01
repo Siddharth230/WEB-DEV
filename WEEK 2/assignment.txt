@@ -1,8 +1,0 @@
-try to create a promisified version of 
-setTimeout
-fetch
-fs.readFile
-
-
-Functional arguments
-Passing a funtion to another function as an argument
